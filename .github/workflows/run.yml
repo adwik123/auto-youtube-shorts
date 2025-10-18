@@ -1,0 +1,24 @@
+name: Run Auto Shorts Bot
+
+on:
+  workflow_dispatch:      # lets you run manually
+  schedule:
+    - cron: "0 10 * * *"  # runs every day at 10:00 UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install requirements
+        run: pip install requests
+
+      - name: Run the robot
+        run: python run_pipeline.py
